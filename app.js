@@ -324,6 +324,7 @@ app.put('/:messageid/delete', isloggedin,  async(req, res) =>{
     console.log('Deleted the message');
     res.send(foundmessage);
 });
-app.listen(8000, () =>{
+const port = process.env.PORT || 8000;
+app.listen(port, () =>{
     console.log('Listening to port 8000')
 });
