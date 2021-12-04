@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Send message</h1>
+    <form action="/<%= conn[0].user1 %>/chat/<%= conn[0].user2 %>" method="POST">
+        <textarea name="sentmessage" id="" cols="30" rows="10"></textarea>
+        <button>Submit</button>
+    </form>
+    <h1>Hello <%= query %></h1>
+   <% if(conn[0].message.length==0){ %>
+   <p>No chats between yout</p>
+   <% } else { %>
+    <% for(let message of conn[0].message){ %>
+        <% if(message.sender._id == query){ %>
+            <p>You-</p>
+            <% } else{  %>
+            <p><%= message.sender.username %></p>
+            <% } %>
+         <li><%= message.message %>    <%= message.date %></li>
+         <% if(String(message.sender._id) == String(currentuser._id)){ %>
+         <form action="/<%=message._id %>?_method=PUT" method="POST">
+        <button>Delete</button>
+    </form>
+    <% } %>
+         <br>
+        <%} } %>
+        <a href="/logout">Logout</a>
+</body>
+</html>

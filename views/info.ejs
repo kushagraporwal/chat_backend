@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <% if(success && success.length) { %>
+        <div class="alert alert-success alert-dismissible fade show"   role="alert">
+            <%= success %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <% } %>
+    
+    <% if(error && error.length) { %>
+        <div class="alert alert-danger alert-dismissible fade show"   role="alert">
+            <%= error %>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          <% } %>
+    <h1>Welcome <%= author.username %></h1>
+    <form action="/sendconn" method="POST">
+        <label for="username" class="form-label">Username</label>
+        <input type="text" id="username" class="form-control" name="username" required>
+        <button class="btn-success">Send request</button>
+    </form>
+    <h2>My connections</h2>
+    <% for(let connection of author.connections){  %>
+        <div>
+            <a href="/<%= author._id %>/chat/<%= connection._id %>"><p><%= connection.username %></p>
+            </a>
+        </div>
+        <% } %>
+    <h2>Incoming Requests-</h2>
+    <% for(let person of author.incoming_request){  %>
+        <div>
+            <a href=""><p><%= person.username %></p>
+            </a>
+            <form action="/<%= person._id %>/connection?_method=PUT" method="POST">
+                <button>Accept</button>
+            </form>
+            <form action="/<%= person._id %>/connection?_method=PATCH" method="POST">
+                <button>Decline</button>
+            </form>
+        </div>
+        <% } %>
+        <a href="/<%= String(currentuser._id) %>/announcements">Announcements</a>
+        <a href="/logout">Logout</a>
+</body>
+</html>
