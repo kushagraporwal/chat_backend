@@ -34,7 +34,7 @@ var author;
 dotenv.config({path: './config.env'});
 
 const DB= process.env.DATABASE;
-const port = process.env.PORT || 8000;
+//const port = process.env.PORT || 8000;
 
 mongoose.connect(DB, {
          useNewUrlParser: true,
